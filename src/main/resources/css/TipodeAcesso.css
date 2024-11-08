@@ -1,0 +1,23 @@
+.Titulo{
+color: rgb(20, 20, 240);
+text-shadow:
+    -2px -1px 0 rgb(255, 255, 255),
+    2px -1px 0 rgb(255, 255, 255),
+    -2px 1px 0 rgb(255, 255, 255),
+    2px 1px 0 rgb(255, 255, 255);
+    font-family:Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-top: 42px;
+    font-size: 45px;
+}
+
+body{
+background-color:rgb(20,20,240)
+}
+
+.Tipo{
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    width: 800px;
+    margin-top: 20px;
+}

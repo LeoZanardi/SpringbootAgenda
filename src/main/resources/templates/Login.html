@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda De Serviços</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/Login.css">
+</head>
+<body>
+<h1 class="Titulo">Bem-vindo, utilize seu usuário e senha<br> para fazer o login</h1>
+<div class="caixa-azul">
+    <form onsubmit="fazerLogin(event)">
+        <div class="form-group">
+            <label for="username">Usuário</label>
+            <input type="text" class="form-control" id="username" placeholder="Digite seu usuário" required> <hr>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary btn-block">Fazer Login</button> <hr>
+        <br>
+        <p>Caso precise se cadastrar, clique aqui <a href="../templates/CadastroUser.html"> <button type="button" class="btn btn-primary btn-block">Cadastrar-se</button></a></p>
+    </form>
+</div>
+
+<script>
+    async function fazerLogin(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('/usuarios/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                const userData = await response.json();
+                alert('Login bem-sucedido!');
+                localStorage.setItem('loggedUser', JSON.stringify(userData)); // Salva os dados do usuário
+                window.location.href = 'AgendaServicos.html';
+            } else {
+                alert('Usuário ou senha incorretos.');
+            }
+        } catch (error) {
+            alert('Erro de rede: ' + error);
+        }
+    }
+</script>
+
+</body>
+</html>

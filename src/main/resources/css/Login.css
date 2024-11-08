@@ -1,0 +1,29 @@
+.caixa-azul {
+    background-color:rgb(20,20,240);
+    color: white;
+    padding: 60px;
+    border-radius: 15px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 1000px;
+    text-align: center;
+
+}
+.Titulo{
+color: white;
+text-shadow:
+    -1px -1px 0 black,
+    3px -1px 0 black,
+    -1px 1px 0 black,
+    3px 1px 0 black;
+text-align:center;
+margin-bottom: 5px;
+margin-top: 50px;
+}
+body{
+background-color:light-grey;
+}
+.form-control {
+    width: 60%;
+    margin: 0 auto;
+}

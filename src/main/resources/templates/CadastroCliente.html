@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Cliente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/CadastroCliente.css">
+</head>
+<body>
+<h1 class="Titulo">CADASTRAR CLIENTES </h1>
+<form>
+
+    <div class="caixas">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" placeholder="Digite o Nome do Cliente"> <hr>
+
+        <label for="telefone">Telefone</label>
+        <input type="tel" class="form-control" id="telefone" placeholder="(XX)XXXXX-XXXX"> <hr>
+
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="example@example.com"> <hr>
+
+        <label for="endereco">Endereço</label>
+        <select class="form-control" id="endereco">
+            <option value="" disabled selected>Selecione o Endereço</option>
+        </select>
+        <hr>
+        <button type="button"  onclick="cadastrarCliente(event)" class="btn btn-primary">Cadastrar</button>
+        <a href="../templates/AgendaServicos.html"  class="btn btn-danger">Retornar</a>
+    </div>
+</form>
+    <script>
+        function cadastrarCliente() {
+        event.preventDefault();
+
+            // salva o nome do cliente
+            const nome = document.getElementById('nome').value;
+         if (nome !== ''){
+            localStorage.setItem('nomeCliente', nome);
+            alert('Cliente Cadastrado!');
+         }else{
+         alert('Digite o nome do cliente.');
+        }
+        }
+
+   window.onload = function() {
+    const cep = localStorage.getItem('cep'); // Pega apenas o CEP
+
+    if (cep) {
+        const enderecoSelect = document.getElementById('endereco');
+        const option = document.createElement('option');
+        option.value = cep;
+        option.textContent = cep;
+        enderecoSelect.appendChild(option);
+    }
+  }
+
+    </script>
+</body>
+</html>
