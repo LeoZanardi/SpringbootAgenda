@@ -13,15 +13,22 @@ import java.util.Optional;
 public class AgendaService {
     @Autowired
     private AgendaRepository agendaRepository;
-    //lista tudo
+    //Metodo que lista todos os dados
     public List<Agenda> findAll() {
         return agendaRepository.findAll();
     }
 
-    ///salva ou edita
+    //Metodo que salva ou edita os dados
     public Agenda save(Agenda agenda) {
         return agendaRepository.saveAndFlush(agenda);
     }
-
+    // Metodo que busca por Id
+    public Optional<Agenda> findOne(Integer id) {
+        return agendaRepository.findById(id);
+    }
+    // Metodo que exclui uma agenda
+    public void delete(Integer id) {
+        agendaRepository.deleteById(id);  // Exclui a agenda pelo ID
+    }
 }
 

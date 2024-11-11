@@ -14,12 +14,14 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
     //lista os Usuarios
     public List<Usuario> findAll(){return usuarioRepository.findAll();}
-    ///salva ou edita Usuario
-    public Usuario save(Usuario usuario) {
-        return usuarioRepository.saveAndFlush(usuario);
-    }
     ///exclui Usuario
     public void delete(Integer id) {
         usuarioRepository.deleteById(id);
     }
-}
+    ///salva Usuario
+    public void save(Usuario usuario) {
+        usuarioRepository.save(usuario);  // Salva o usuário no banco de dados
+    }
+
+    }
+

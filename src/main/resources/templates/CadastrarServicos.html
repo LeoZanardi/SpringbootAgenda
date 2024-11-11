@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Serviços</title>
@@ -8,21 +8,19 @@
 </head>
 <body>
 <h1 class="Titulo">CADASTRAR SERVIÇOS</h1>
-<form>
+<form th:action="@{/add/servicos}" th:object="${servico}" method="post">
 
     <div class="caixas">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control" id="nome" placeholder="Digite o Nome do Serviço"> <hr>
+        <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Digite o Nome do Serviço" required><hr>
 
         <label for="valor">Valor</label><br>
-        <input type="text" id="valor" placeholder="Digite o valor do serviço" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
+        <input type="text" class="form-control" id="valor" th:field="*{valor}" placeholder="Digite o valor do serviço" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" required><hr>
 
-        <hr>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
-        <a href="javascript:history.back()" class="btn btn-danger">Retornar</a>
+        <a th:href="@{/AgendaServicos}" class="btn btn-danger">Retornar</a>
     </div>
-
-
 </form>
+
 </body>
 </html>

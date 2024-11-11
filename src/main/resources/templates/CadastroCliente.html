@@ -1,60 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Cliente</title>
+    <title>Cadastrar/Editar Cliente</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/CadastroCliente.css">
 </head>
 <body>
-<h1 class="Titulo">CADASTRAR CLIENTES </h1>
-<form>
+<h1 class="Titulo">Cadastrar/Editar Cliente</h1>
 
-    <div class="caixas">
+<form th:action="@{${cliente.id == null ? '/add/Cliente' : '/edit/Cliente'}}"
+      th:object="${cliente}" method="post">
+
+    <div class="form-group">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control" id="nome" placeholder="Digite o Nome do Cliente"> <hr>
-
-        <label for="telefone">Telefone</label>
-        <input type="tel" class="form-control" id="telefone" placeholder="(XX)XXXXX-XXXX"> <hr>
-
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="example@example.com"> <hr>
-
-        <label for="endereco">Endereço</label>
-        <select class="form-control" id="endereco">
-            <option value="" disabled selected>Selecione o Endereço</option>
-        </select>
-        <hr>
-        <button type="button"  onclick="cadastrarCliente(event)" class="btn btn-primary">Cadastrar</button>
-        <a href="../templates/AgendaServicos.html"  class="btn btn-danger">Retornar</a>
+        <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Digite o nome do cliente" required>
     </div>
+
+    <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input type="text" class="form-control" id="telefone" th:field="*{telefone}" placeholder="Digite o telefone" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Digite o email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="endereco">Endereço</label>
+        <select class="form-control" id="endereco" th:field="*{endereco}" required>
+            <option value="" disabled selected>Selecione o Endereço</option>
+            <option th:each="endereco : ${enderecos}" th:value="${endereco.id}" th:text="${endereco.logradouro}"></option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+    <a th:href="@{/AgendaServicos}" class="btn btn-danger">Cancelar</a>
 </form>
-    <script>
-        function cadastrarCliente() {
-        event.preventDefault();
 
-            // salva o nome do cliente
-            const nome = document.getElementById('nome').value;
-         if (nome !== ''){
-            localStorage.setItem('nomeCliente', nome);
-            alert('Cliente Cadastrado!');
-         }else{
-         alert('Digite o nome do cliente.');
-        }
-        }
-
-   window.onload = function() {
-    const cep = localStorage.getItem('cep'); // Pega apenas o CEP
-
-    if (cep) {
-        const enderecoSelect = document.getElementById('endereco');
-        const option = document.createElement('option');
-        option.value = cep;
-        option.textContent = cep;
-        enderecoSelect.appendChild(option);
-    }
-  }
-
-    </script>
 </body>
 </html>

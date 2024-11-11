@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Agenda de Serviços</title>
@@ -8,19 +8,19 @@
 </head>
 <body>
 <h1 class="Titulo">AGENDA DE SERVIÇOS</h1>
-<h2 class="Sub-titulo"><a href="">AGENDAS CADASTRADAS</a></h2>
+<h2 class="Sub-titulo">
+    <a th:href="@{/AgendasCadastradas}">AGENDAS CADASTRADAS</a>
+</h2>
+
 <form>
-
     <ul>
-        <li> <a href="../templates/Agendamento.html">Cadastrar<br> Agendamento</a></li>
-        <li> <a href="../templates/CadastrarServicos.html">Cadastrar<br> Serviço</a></li>
-        <li> <a href="../templates/CadastroCliente.html">Cadastrar<br> Cliente</a></li>
-        <li> <a href="../templates/CadastroEndereco.html">Cadastrar<br> Endereço</a></li>
-        <li> <a href="../templates/CadastrarFuncionario.html">Cadastrar<br> Funcionario</a></li>
+        <li> <a th:href="@{/Agendamento}">Cadastrar<br> Agendamento</a></li>
+        <li> <a th:href="@{/CadastrarServicos}">Cadastrar<br> Serviço</a></li>
+        <li> <a th:href="@{/CadastroCliente}">Cadastrar<br> Cliente</a></li>
+        <li> <a th:href="@{/CadastroEndereco}">Cadastrar<br> Endereço</a></li>
+        <li> <a th:href="@{/CadastrarFuncionario}">Cadastrar<br> Funcionario</a></li>
     </ul>
-
-
-
 </form>
+
 </body>
 </html>

@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Agendas Cadastradas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/CadastrarServicos.css">
+    <link rel="stylesheet" href="../css/AgendasCadastradas.css">
 </head>
 <body>
-<h1 class="Titulo">AGENDAS CADASTRADAS</h1>
-<form>
+<div class="container mt-4">
+    <div class="card border-0 shadow">
+        <div class="card-header card-header-custom py-3">
+            <h5 class="mb-0">Lista de Agendamentos</h5>
+        </div>
+        <div class="card-body px-4">
+            <table class="table table-striped table-sm text-center align-middle">
+                <thead>
+                <tr>
+                    <th>Serviço</th>
+                    <th>Cliente</th>
+                    <th>Funcionário</th>
+                    <th>Usuário</th>
+                    <th>Endereço</th>
+                    <th>Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="agendamento : ${agendamentos}">
+                    <!-- Exibe o serviço -->
+                    <td th:text="${agendamento.servico.nome}"></td>
+                    <!-- Exibe o cliente -->
+                    <td th:text="${agendamento.cliente.nome}"></td>
+                    <!-- Exibe o funcionário -->
+                    <td th:text="${agendamento.funcionario.nome}"></td>
+                    <!-- Exibe o usuário -->
+                    <td th:text="${agendamento.usuario.username}"></td>
+                    <!-- Exibe o endereço -->
+                    <td th:text="${agendamento.endereco}"></td>
+                    <!-- Exibe o valor -->
+                    <td th:text="${agendamento.valor}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <a th:href="@{/AgendaServicos}" class="btn btn-danger">Retornar</a>
+</div>
 
 </body>
 </html>

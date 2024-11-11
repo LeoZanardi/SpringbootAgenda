@@ -17,16 +17,29 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@GetMapping("/add/user")
+///Metodo que mostra o formulario
+	@GetMapping("/usuario")
 	public ModelAndView add(Usuario post) {
-		
-		ModelAndView mv = new ModelAndView("/CadastroUser");
+		ModelAndView mv = new ModelAndView("CadastroUser");
 		mv.addObject("usuario", post);
-		
 		return mv;
-	}	
+	}
+	// Método para listar os usuarios cadastrados
+	@GetMapping("/list/usuarios")
+	public ModelAndView listarServicos() {
+		ModelAndView mv = new ModelAndView("AgendasCadastradas");
+		mv.addObject("servicos", usuarioService.findAll());
+		return mv;
+	}
+
+	// Método para excluir um usuario
+	@GetMapping("/delete/usuario/{id}")
+	public String deleteServico(@PathVariable("id") Integer id) {
+		usuarioService.delete(id);  // Chama o serviço para excluir o serviço pelo ID
+		return "redirect:/servicos";  // Redireciona para a lista de serviços
+	}
 }

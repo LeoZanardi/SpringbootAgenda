@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Endereço</title>
@@ -8,119 +8,85 @@
 </head>
 <body>
 <h1 class="Titulo">CADASTRAR ENDEREÇO </h1>
-<form>
+<form th:action="@{/add/end}" th:object="${endereco}" method="post">
 
     <div class="caixas">
-        <label for="logradouro">Logradouro</label>
-        <input type="text" class="form-control" id="logradouro" placeholder="Digite o Logradouro"> <hr>
 
+        <label for="logradouro">Logradouro</label>
+        <input type="text" class="form-control" id="logradouro" th:field="*{logradouro}" placeholder="Digite o Logradouro"> <hr>
 
 
         <label for="UF">UF</label>
-        <select class="form-control" id="UF" onchange="atualizarEstado()">
-            <option value="" disabled selected>Selecione o Estado</option>
-            <option value="Acre">AC</option>
-            <option value="Alagoas">AL</option>
-            <option value="Amapá">AP</option>
-            <option value="Amazonas">AM</option>
-            <option value="Bahia">BA</option>
-            <option value="Ceará">CE</option>
-            <option value="Distrito Federal">DF</option>
-            <option value="Espírito Santo">ES</option>
-            <option value="Goiás">GO</option>
-            <option value="Maranhão">MA</option>
-            <option value="Mato Grosso">MT</option>
-            <option value="Mato Grosso do Sul">MS</option>
-            <option value="Minas Gerais">MG</option>
-            <option value="Pará">PA</option>
-            <option value="Paraíba">PB</option>
-            <option value="Paraná">PR</option>
-            <option value="Pernambuco">PE</option>
-            <option value="Piauí">PI</option>
-            <option value="Rio de Janeiro">RJ</option>
-            <option value="Rio Grande do Norte">RN</option>
-            <option value="Rio Grande do Sul">RS</option>
-            <option value="Rondônia">RO</option>
-            <option value="Roraima">RR</option>
-            <option value="Santa Catarina">SC</option>
-            <option value="São Paulo">SP</option>
-            <option value="Sergipe">SE</option>
-            <option value="Tocantins">TO</option>
+        <select class="form-control" id="UF" th:field="*{uf}" onchange="atualizarEstado()">
+            <option value="" disabled selected>Digite o CEP</option>
+
         </select>
         <hr>
+
+
         <label for="estado">Estado</label>
-        <input type="text" class="form-control" id="estado" placeholder="Estado" readonly>
+        <input type="text" class="form-control" id="estado" th:field="*{estado}" placeholder="Estado" readonly>
         <hr>
 
 
         <label for="cep">CEP</label>
-        <input type="text" class="form-control" id="cep" maxlength="10" placeholder="Digite o Cep" onblur="buscarEndereco()">
-        <hr>
-        <label for="cidade">Cidade</label>
-        <input type="text" class="form-control" id="cidade"  placeholder="Digite a Cidade">
-        <hr>
-        <label for="numero">Número</label>
-        <input type="text" class="form-control" id="numero"  placeholder="Digite o Numero da Casa">
-        <hr>
-        <label for="complemento">Complemento</label>
-        <input type="text" class="form-control" id="complemento" placeholder="Digite o Complemento">
+        <input type="text" class="form-control" id="cep" th:field="*{cep}" maxlength="10" placeholder="Digite o Cep" onblur="buscarEndereco()">
         <hr>
 
-        <button type="button" onclick="cadastrarEndereco(event)" class="btn btn-primary">Cadastrar</button>
-        <a href="../templates/AgendaServicos.html" class="btn btn-danger">Retornar</a>
+
+        <label for="cidade">Cidade</label>
+        <input type="text" class="form-control" id="cidade" th:field="*{cidade}" placeholder="Digite a Cidade">
+        <hr>
+
+
+        <label for="numero">Número</label>
+        <input type="text" class="form-control" id="numero" th:field="*{numero}" placeholder="Digite o Número da Casa">
+        <hr>
+
+
+        <label for="complemento">Complemento</label>
+        <input type="text" class="form-control" id="complemento" th:field="*{complemento}" placeholder="Digite o Complemento">
+        <hr>
+
+
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <a th:href="@{/AgendaServicos}" class="btn btn-danger">Retornar</a>
     </div>
 </form>
+
 <script>
-    function cadastrarEndereco(){
-    const logradouro = document.getElementById('logradouro').value;
-     const cidade = document.getElementById('cidade').value;
-     const cep = document.getElementById('cep').value;
-     const estado = document.getElementById('estado').value;
-     const numero = document.getElementById('numero').value;
-     const complemento = document.getElementById('complemento').value;
+    // Função para buscar o endereço via API
+    function buscarEndereco() {
+        const cep = document.getElementById('cep').value.replace(/\D/g, '');
+        if (cep.length === 8) {
+            const url = `https://viacep.com.br/ws/${cep}/json/`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.getElementById('logradouro').value = data.logradouro;
+                        document.getElementById('cidade').value = data.localidade;
+                        document.getElementById('estado').value = data.uf;
+                        document.getElementById('UF').value = data.uf;
+                    } else {
+                        alert('CEP não encontrado.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar endereço:', error);
+                    alert('Erro ao buscar endereço. Tente novamente.');
+                });
+        } else {
+            alert('Por favor, digite um CEP válido.');
+        }
+    }
 
-     if (logradouro !== '' && cep !== '' && cidade !== '' && estado !== '' && numero !== '') {
-         const enderecoCep = `${cep}`;
-
-         localStorage.setItem('cep', enderecoCep);
-
-             alert('Endereço Cadastrado!');
-         } else {
-             alert('Preencha todos os campos obrigatórios!');
-         }
-
-     }
-
-  function buscarEndereco() {
-      const cep = document.getElementById('cep').value.replace(/\D/g, '');
-      if (cep.length === 8) {
-          const url = `https://viacep.com.br/ws/${cep}/json/`;
-          fetch(url)
-              .then(response => response.json())
-              .then(data => {
-                  if (!data.erro) {
-                      document.getElementById('logradouro').value = data.logradouro;
-                      document.getElementById('cidade').value = data.localidade;
-                      document.getElementById('estado').value = data.uf;
-                      document.getElementById('UF').value = data.uf;
-                  } else {
-                      alert('CEP não encontrado.');
-                  }
-              })
-              .catch(error => {
-                  console.error('Erro ao buscar endereço:', error);
-                  alert('Erro ao buscar endereço. Tente novamente.');
-              });
-      } else {
-          alert('Por favor, digite um CEP válido.');
-      }
-  }
-
-  function atualizarEstado() {
-      const select = document.getElementById('UF');
-      const input = document.getElementById('estado');
-      input.value = select.value;
-  }
+    // Função para atualizar o estado com base no select
+    function atualizarEstado() {
+        const select = document.getElementById('UF');
+        const input = document.getElementById('estado');
+        input.value = select.value;
+    }
 </script>
 </body>
 </html>

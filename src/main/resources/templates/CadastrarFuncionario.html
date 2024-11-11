@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Funcionário</title>
@@ -7,29 +7,30 @@
     <link rel="stylesheet" href="../css/CadastroCliente.css">
 </head>
 <body>
-<h1 class="Titulo">CADASTRAR FUNCIONÁRIO </h1>
-<form>
+<h1 class="Titulo">CADASTRAR FUNCIONÁRIO</h1>
+<form th:action="@{/add/funcionario}" th:object="${funcionario}" method="post">
 
     <div class="caixas">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control" id="nome" placeholder="Digite o Nome do Cliente"> <hr>
+        <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Digite o Nome do Funcionário" required><hr>
 
         <label for="telefone">Telefone</label>
-        <input type="tel" class="form-control" id="telefone" placeholder="(XX)XXXXX-XXXX"> <hr>
+        <input type="tel" class="form-control" id="telefone" th:field="*{telefone}" placeholder="(XX)XXXXX-XXXX" required><hr>
 
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="example@example.com"> <hr>
+        <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="example@example.com" required><hr>
 
         <label for="endereco">Endereço</label>
-        <select class="form-control" id="endereco">
+        <select class="form-control" id="endereco" th:field="*{endereco}">
             <option value="" disabled selected>Selecione o Endereço</option>
-        </select>
-        <hr>
+            <!-- Aqui você pode preencher com dados de endereços se necessário -->
+        </select><hr>
+
         <label for="salario">Salário</label><br>
-        <input type="text" id="salario" placeholder="Digite o salário" oninput="this.value = this.value.replace(/[^0-9,]/g, '');">
-        <hr>
+        <input type="text" id="salario" th:field="*{salario}" placeholder="Digite o salário" oninput="this.value = this.value.replace(/[^0-9,]/g, '');" required><hr>
+
         <button type="submit" class="btn btn-primary">Cadastrar</button>
-        <a href="javascript:history.back()" class="btn btn-danger">Retornar</a>
+        <a th:href="@{/AgendaServicos}" class="btn btn-danger">Retornar</a>
     </div>
 </form>
 </body>

@@ -13,13 +13,18 @@ import java.util.Optional;
 public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
-    //lista os enderecos
-    public List<Endereco> findAll(){return enderecoRepository.findAll();}
-    ///salva ou edita Endereco
+
+    // Lista os endereços
+    public List<Endereco> findAll() {
+        return enderecoRepository.findAll();
+    }
+
+    // Salva ou edita o Endereco
     public Endereco save(Endereco endereco) {
         return enderecoRepository.saveAndFlush(endereco);
     }
-    ///exclui Endereco
+
+    // Exclui Endereco
     public void delete(Integer id) {
         enderecoRepository.deleteById(id);
     }

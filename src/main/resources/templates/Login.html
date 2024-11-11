@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Agenda De Serviços</title>
@@ -8,23 +8,33 @@
 </head>
 <body>
 <h1 class="Titulo">Bem-vindo, utilize seu usuário e senha<br> para fazer o login</h1>
+
 <div class="caixa-azul">
-    <form onsubmit="fazerLogin(event)">
+
+    <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="username">Usuário</label>
-            <input type="text" class="form-control" id="username" placeholder="Digite seu usuário" required> <hr>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu usuário" required>
+            <hr>
         </div>
+
         <div class="form-group">
             <label for="password">Senha</label>
-            <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
         </div>
+
         <br>
-        <button type="submit" class="btn btn-primary btn-block">Fazer Login</button> <hr>
+        <button type="submit" class="btn btn-primary btn-block">Fazer Login</button>
+        <hr>
         <br>
-        <p>Caso precise se cadastrar, clique aqui <a href="../templates/CadastroUser.html"> <button type="button" class="btn btn-primary btn-block">Cadastrar-se</button></a></p>
+        <p>Caso precise se cadastrar, clique aqui
+            <a th:href="@{/CadastroUser}">
+                <button type="button" class="btn btn-primary btn-block">Cadastrar-se</button>
+            </a>
+        </p>
     </form>
 </div>
-
+</body>
 <script>
     async function fazerLogin(event) {
         event.preventDefault();
@@ -54,5 +64,4 @@
     }
 </script>
 
-</body>
 </html>
